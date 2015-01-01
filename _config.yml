@@ -49,5 +49,7 @@ exclude:
   - Dockerfile
   - build.R
   - _cache
+  - Makefile
+  - deploy.sh
 
 
