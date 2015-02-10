@@ -126,7 +126,7 @@
 <p>Fish remaining are whatever wasn’t harvested yet: <span class="math">\[ x_{t+1} = x_t - h_t \]</span></p>
 <p>Cost/profit of harvesting: Profit <span class="math">\(p(t)\)</span> per fish (possibly varies with year), but cost gets harder <span class="math">\(c h^2\)</span>, <span class="math">\(c &lt;&lt; p(t)\)</span>, <span class="math">\[ U(h) = p h - c h^2 \]</span></p>
 <p>The algorithm can be specified by recursion,</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 phi &lt;-<span class="st"> </span>function(x) <span class="dv">300</span>
 
 J &lt;-<span class="st"> </span>function(t,x){

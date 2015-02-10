@@ -130,7 +130,7 @@
 </figure>
 <h2 id="plotting-with-stats_summary">Plotting with stats_summary()</h2>
 <p>Using stats_summary instead of melt and cast computations and line and ribbon geometries for adding statistical layers to plots.  For instance, from plots.R in SDP code:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">subset</span>(dat, variable ==<span class="st"> &quot;unharvested&quot;</span>),
            <span class="kw">aes</span>(time, value, <span class="dt">group =</span> L1)) +<span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">alpha=</span>.<span class="dv">2</span>) +
 <span class="st">  </span><span class="co"># shows the mean +/i mult * sd , requires Hmisc</span>
@@ -138,7 +138,7 @@
 <p>Note that this needs thee aesthetic mapping (group=1) to know what to do. I’m not clear exactly why.</p>
 <p>Note also that “mult” is an additional option, and is passed to the function, mean_sdl, specifying the multiplier in front of the standard deviation.</p>
 <p>The documentation of possible function definitions in stat_summary aren’t entirely clear. This can take fun.y to apply the function across y values, for instance, to calculate just the mean:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">subset</span>(dat, variable ==<span class="st"> &quot;unharvested&quot;</span>),
        <span class="kw">aes</span>(time, value, <span class="dt">group =</span> L1)) +<span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">alpha=</span>.<span class="dv">2</span>) +
 <span class="st">    </span><span class="kw">stat_summary</span>(<span class="dt">fun.y =</span> mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>, <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">group =</span> <span class="dv">1</span>))</code></pre>

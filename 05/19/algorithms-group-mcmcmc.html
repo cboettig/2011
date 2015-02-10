@@ -110,10 +110,10 @@
 <p><span class="math">\[ R = \min\left[ 1, \left( \frac{f(X|\theta^{\prime})}{f(X|\theta)} \times \frac{f(\theta^{\prime})}{f(\theta)} \right)^{\beta_i} \times \frac{q(\theta)}{q(\theta^{\prime})} \right] \]</span></p>
 <p>where</p>
 <p><span class="math">\[ \beta_i = \frac{1}{1+\Delta T \times (i-1)} \]</span></p>
-<p>for priors $ f() <span class="math">\(, likelihood \)</span> f(X|) <span class="math">\(, proposed parameters \)</span> ^{} <span class="math">\(, and proposal density \)</span> q() $</p>
+<p>for priors $ f() $, likelihood $ f(X|) $, proposed parameters $ ^{} $, and proposal density $ q() $</p>
 <p>In this mode chains evolve along independently.  We occasionally propose a swap between chains, where the Hastings ratio takes on the specific form:</p>
 <p><span class="math">\[R = \min \left[1, \left( \frac{f(\theta_k|X)}{f(\theta_j|X)} \right)^{\beta_j} \left( \frac{f(\theta_j|X)}{f(\theta_k|X)}\right)^{\beta_k} \right]\]</span></p>
-<p>Note that for the posterior $ f(| X) $ we use $ f(X|) f() <span class="math">\(, just as in the single chain case, which is true modulo the normalization \)</span> f(X) $.</p>
+<p>Note that for the posterior $ f(| X) $ we use $ f(X|) f() $, just as in the single chain case, which is true modulo the normalization $ f(X) $.</p>
 <p>[gist id=981399]</p>
 <p>Note this code doesn’t run anything, we have to specify temperature ratios $ _i $, the likelihood function, and the prior, and then it can give us back chains.  Here’s a trivial example based on our Gaussian process:</p>
 <pre class="sourceCode r"><code class="sourceCode r">

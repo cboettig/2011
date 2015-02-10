@@ -110,11 +110,11 @@
 <p>MPI on farm cluster</p>
 <p>Got my MPI codes running.<br />Much better way to get jobs into the queue, asking for 16 threads that don’t have to be on the same node is much faster. Can also ask for 161 threads, but will wait longer in the queue.</p>
 <p>The trick to getting this to run was mostly getting the library set correctly. Setting the library path at the top of the script did the trick:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 RLIBS=<span class="st">&quot;~/R/x86_64-redhat-linux-gnu-library/2.13&quot;</span>
 <span class="kw">.libPaths</span>(<span class="kw">c</span>(RLIBS, <span class="kw">.libPaths</span>()))</code></pre>
 <p>From there I can initialize an MPI instance, set up exit conditions, load variables and functions to the slave nodes and then have them all execute the desired function:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 
 N &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># n-1 from the threads allocated(?) </span>
 

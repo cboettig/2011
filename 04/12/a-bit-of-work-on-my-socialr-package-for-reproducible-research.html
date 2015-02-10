@@ -122,7 +122,7 @@ twitCred = OAuthFactory$new(consumerKey=consumerKey,
 twitCred$handshake()
 registerTwitterOAuth(twitCred)
 save(list=&quot;twitCred&quot;, file=&quot;twitteR_credentials&quot;)</code></pre>
-<p>Note that you must specify consumerKey and consumerSecret from registering as a twitteR app: <a href="http://twitter.com/apps/new">http://twitter.com/apps/new</a> In the future one can then authenticate just by loading the credentials and calling register:</p>
+<p>Note that you must specify consumerKey and consumerSecret from registering as a twitteR app: <a href="http://twitter.com/apps/new" class="uri">http://twitter.com/apps/new</a> In the future one can then authenticate just by loading the credentials and calling register:</p>
 <pre><code>load(&quot;twitteR_credentials&quot;)
 registerTwitterOAuth(twitCred)</code></pre>
 <p>Can now send tweets or direct messages;</p>

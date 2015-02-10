@@ -120,13 +120,13 @@
 <p>which xmlValue() would read in using the octal encoding  “Cape Bojador (260260N)”</p>
 <p>and which R CMD check would then complain about, giving the error in byte encoding (just to confuse me): “Cape Bojador (26<c2><b0>N)”</p>
 <p>inconv() function provided my crude work-around:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 string &lt;-<span class="st"> &quot;Cape Bojador (26\302\260N)&quot;</span>
 <span class="kw">Encoding</span>(string) &lt;-<span class="st"> &quot;UTF-8&quot;</span>
 <span class="kw">iconv</span>(string, <span class="st">&quot;UTF-8&quot;</span>, <span class="st">&quot;ASCII&quot;</span>, <span class="st">&quot;byte&quot;</span>) <span class="co"># return hex code used by R CMD check</span>
 string &lt;-<span class="st"> </span><span class="kw">iconv</span>(string, <span class="st">&quot;UTF-8&quot;</span>, <span class="st">&quot;ASCII&quot;</span>, <span class="st">&quot;&quot;</span>) <span class="co"># just drop those chars</span></code></pre>
 <p>I could translate the hex errors by hand into octal, and then hand-code a better literal translation:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 string &lt;-<span class="st"> &quot;Cape Bojador (26\302\260N)&quot;</span>
 string &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;\302\260&quot;</span>, <span class="st">&quot; degrees &quot;</span>, string)</code></pre>
 <p>but that’s too tedious and slow, I’ll cope without the degree symbol for the moment.   Tedious, because I’d have to recode most UTF-8 symbols, starting by decoding their byte strings, by looking up the <a href="http://stuffofinterest.com/misc/utf8.php?s=128">hex string here</a>, then pasting the symbol into an<a href="http://encodertool.com/octal">octal encoder</a>.    A partial list of the offenders includes:</p>

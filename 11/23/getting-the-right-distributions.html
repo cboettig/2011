@@ -108,34 +108,34 @@
     <article>
     <p>Determining the stochastic transition matrix is the essential computational step of SDP solution. If stochasticity enters only in the growth process:</p>
 <p><span class="math">\[x_{t+1} = z_t f(x_t) \]</span></p>
-<p>where <span class="math">\(z_t\)</span> is a draw from a log-normal density distribution function $  (x; , ) <span class="math">\(, then the probability that \)</span>x_{t+1}$ falls within a bin $ [x_i-,x_i+] $ given that at it is currently at <span class="math">\(x_t = y\)</span> is</p>
+<p>where <span class="math">\(z_t\)</span> is a draw from a log-normal density distribution function $  (x; , ) $, then the probability that <span class="math">\(x_{t+1}\)</span> falls within a bin $ [x_i-,x_i+] $ given that at it is currently at <span class="math">\(x_t = y\)</span> is</p>
 <p><span class="math">\[ P([x_i-\Delta,x_i+\Delta] |y) = \int_{x-\Delta}^{x+\Delta} \log \mathcal{N}(x; \log(f(y)) + \mu, \sigma) dx\]</span></p>
 <p>Note that we are discritizing the transition matrix to a grid of values $ x_i $ at time <span class="math">\(t\)</span> to $ x_j$ at time <span class="math">\(t+1\)</span>, hence the binning question, where $ $ is half the grid bin width.</p>
 <p>Another note: Let us assume z_t is mean unity; only logical for the growth equation. In the case of the log-normal, the parameter $ $ is the log mean, thus: $ z_t =  (x; (1) - ^2/2, ) $.</p>
 <h3 id="computational-implementation-comparison">Computational implementation / comparison</h3>
 <p>On a fine grid, this seems to be the same as just evaluating the density at the midpoint and normalizing.</p>
 <p>For instance, we could integrate following the definition above:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 bw &lt;-<span class="st"> </span>(x_grid[<span class="dv">2</span>] -<span class="st"> </span>x_grid[<span class="dv">1</span>]) /<span class="st"> </span><span class="dv">2</span> <span class="co"># we&#39;ll go from the midpoint</span>
 F &lt;-<span class="st"> </span>function(x) <span class="kw">dlnorm</span>(x, <span class="kw">log</span>(<span class="kw">f</span>(y,h,p)) -<span class="st"> </span>sigma_g ^<span class="st"> </span><span class="dv">2</span> /<span class="st"> </span><span class="dv">2</span>, sigma_g)
 Prob &lt;-<span class="st"> </span><span class="kw">sapply</span>(x_grid, function(x) <span class="kw">integrate</span>(F, x -<span class="st"> </span>bw, x +<span class="st"> </span>bw)[[<span class="dv">1</span>]] )
 Prob/<span class="kw">sum</span>(Prob)</code></pre>
 <p>which seems to get us the same thing as evaluating the density directly at the midpoint:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 Prob &lt;-<span class="st"> </span><span class="kw">sapply</span>(x_grid, <span class="kw">dlnorm</span>(x, <span class="kw">log</span>(<span class="kw">f</span>(y)) -<span class="st"> </span>sigma^<span class="dv">2</span>/<span class="dv">2</span>, sigma))
 Prob/<span class="kw">sum</span>(Prob)</code></pre>
 <p>Note also that because we’re normalizing, we could just as easily rescaled the state by the mean,</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">dlnorm</span>(x/<span class="kw">f</span>(y), <span class="kw">log</span>(<span class="dv">1</span>) -<span class="st"> </span>sigma^<span class="dv">2</span>/<span class="dv">2</span>, sigma)</code></pre>
 <p>See <a href="https://github.com/cboettig/pdg_control/blob/43cb4839d91f6ea310678289dbf6368739f131e3/R/SDP/unit_tests.R">this example code</a> (requires my<a href="https://github.com/cboettig/pdg_control/blob/ae2bb58ca29339d81e815e032bdffa9f17391b3f/R/SDP/stochastic_dynamic_programming.R">stochastic_dynamic_programming.R</a>functions), distributions agree pretty exactly (red and blue distributions overlap exactly to look purple):</p>
 <figure>
 <img src="http://farm8.staticflickr.com/7002/6391815985_360cf7c40f_o.png" />
 </figure>
 <h3 id="adding-additional-sources-of-uncertainty">Adding additional sources of uncertainty</h3>
-<p>In the above, next year’s population is uncertain but this year’s is known perfectly. Imagine the current value of the stock <span class="math">\(x_t \)</span>, is a random deviate from the value we measured <span class="math">\(m_t\)</span>, given by the probability density $ P_m(x_t) <span class="math">\(, and the harvest level will be a random variate around whatever level we set for the quota, given from the distribution P_q(h).  Both of these introduce uncertainty into the expected value of stock next year, \)</span>f(x_t,h_t)$:</p>
+<p>In the above, next year’s population is uncertain but this year’s is known perfectly. Imagine the current value of the stock $x_t $, is a random deviate from the value we measured <span class="math">\(m_t\)</span>, given by the probability density $ P_m(x_t) $, and the harvest level will be a random variate around whatever level we set for the quota, given from the distribution P_q(h). Both of these introduce uncertainty into the expected value of stock next year, <span class="math">\(f(x_t,h_t)\)</span>:</p>
 <p><span class="math">\[ P([x_i,x_i+\Delta] |m_t, q_t) = \]</span> <span class="math">\[  \int_x^{x+\Delta} dx  \int_0^{\infty}dy \int_0^{\infty} dh\cdot \ln\mathcal{N}(x; \log(f(y,h)) + \mu, \sigma) P_q(h) P_m(y) \]</span></p>
 <p>Looks like this is gonna be un-pretty. Cubature R package is supposed to handle these higher-dimensional integrals quickly, but no luck. Computation for even a single integral is very slow:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">require</span>(cubature)
 pdf_zg &lt;-<span class="st"> </span>function(x, expected) <span class="kw">dlnorm</span>(x, <span class="kw">log</span>(expected)-sigma_g^<span class="dv">2</span>/<span class="dv">2</span>, sigma_g)
 pdf_zm &lt;-<span class="st"> </span>function(x) <span class="kw">dlnorm</span>(x, <span class="kw">log</span>(<span class="dv">1</span>)-sigma_m^<span class="dv">2</span>/<span class="dv">2</span>, sigma_m)

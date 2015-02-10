@@ -119,12 +119,12 @@
 <li>Chris O’s question on body size evolution:</li>
 </ul>
 <p>compare the correlation of two traits corrected for size and phylogeny using several methods (Blomberg et al. 2003, pic residuals, pgls residuals and Revell’s method).</p>
-<p>We have an evolving trait X. The value of the trait is strongly influenced by the evolution of another evolving trait, Y (size). Assume size Y depends on no other traits and follows Brownian motion: $ dY_t = <em>Y dB</em>t $ Assume trait X is also undergoing a random walk, but is also tugged around in a linear fashion (with strength ) by the size Y: $ dX_t = Y_t + <em>X dB</em>t $ Trait X is then not doing a purely Brownian random walk, so we cannot apply any of the methods which assume that it is.</p>
+<p>We have an evolving trait X. The value of the trait is strongly influenced by the evolution of another evolving trait, Y (size). Assume size Y depends on no other traits and follows Brownian motion: $ dY_t = _Y dB_t $ Assume trait X is also undergoing a random walk, but is also tugged around in a linear fashion (with strength ) by the size Y: $ dX_t = Y_t + _X dB_t $ Trait X is then not doing a purely Brownian random walk, so we cannot apply any of the methods which assume that it is.</p>
 <p>We could instead consider the general form of a model in which trait X evolves as a stochastic process, dependent on trait Y:</p>
 <p><span class="math">\[ dX = f(X, Y)dt + \Sigma dB_t \]</span></p>
 <p>Trait Y also evolves,</p>
 <p><span class="math">\[ dY = f(X,Y) dt + \Sigma dB_t \]</span></p>
-<p>Now dB_t is a vector of two random walks and $ $ is a matrix, with terms $ <em>{x^2}, </em>{yx}, <em>{xy} <span class="math">\(, and \)</span> </em>{y^2}.$ The model above is a special case of this. This in general will not have a multivariate normal distribution of traits. We’ve run into this before: Peter asked effectively the same question earlier this quarter: <a href="../archives/151">http://www.carlboettiger.info/archives/151</a>. Answer: maybe ABC, since we cannot solve the likelihood but can simulate?</p>
+<p>Now dB_t is a vector of two random walks and $ $ is a matrix, with terms $ <em>{x^2}, </em>{yx}, <em>{xy} $, and $ </em>{y^2}.$ The model above is a special case of this. This in general will not have a multivariate normal distribution of traits. We’ve run into this before: Peter asked effectively the same question earlier this quarter: <a href="../archives/151">http://www.carlboettiger.info/archives/151</a>. Answer: maybe ABC, since we cannot solve the likelihood but can simulate?</p>
 <ul>
 <li>Lars has a question on power in this study: (Young <em>et. al.</em> 2011)</li>
 </ul>

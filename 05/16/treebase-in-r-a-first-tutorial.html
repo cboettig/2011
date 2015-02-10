@@ -157,7 +157,7 @@ s &lt;-<span class="st"> </span><span class="kw">get_study_id</span>( all[nature
 
 nature_trees &lt;-<span class="st"> </span><span class="kw">sapply</span>(s, function(x) <span class="kw">search_treebase</span>(x, <span class="st">&quot;id.study&quot;</span>))
 </code></pre>
-<p>Other details associated with the study are certainly also available.  Since we downloaded all metadata we have this stored already.  Any tree downloaded stores the TreeBASE study id in <span class="math">\(S.id, ((and the unique tree id in \)</span>Tr.id)) which we can use to look up the metadata again.</p>
+<p>Other details associated with the study are certainly also available.  Since we downloaded all metadata we have this stored already.  Any tree downloaded stores the TreeBASE study id in $S.id, ((and the unique tree id in $Tr.id)) which we can use to look up the metadata again.</p>
 <pre class="sourceCode r"><code class="sourceCode r">
 
 <span class="kw">plot</span>(nature_trees[[<span class="dv">1</span>]][[<span class="dv">1</span>]]) <span class="co">#plot first tree in the first study in the set</span>

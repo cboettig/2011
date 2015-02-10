@@ -110,7 +110,7 @@
 <p>Updated the pmc wrappers for fit_continuous to pass bounds on lambda to the bootstrapping Monte Carlo functions.  Settled on passing all options explicitly after quite a bit of effort. Looking for way to pass a function all of it’s arguments as a named arguments in a list; statscicomp list suggested do.call() function; quite brilliant.</p>
 <p>Considering user workflow for wrappers.  Conceptually, makes sense for user to run the standard package fit routines first, and then pass the results to pmc.  Added support to pass the fit, rather than refit, to create fitContinuous object of the pmc package.</p>
 <p>Revised method for wrapping PMC capability around existing functions (given a fit method and a simulation method).  A bit cumbersome still, as requires a couple user-defined functions, but at least faster for me to write wrappers, if not likely simple enough for most users to write their own wrappers.  Construction is explained in the in-code documentation of pmc_model.R, but easily illustrated with some simple examples (also in pmc_ex.R)</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># use the pmc_model to define a function that fits under &quot;pureBirth&quot; and simulates under &quot;sim.bd.taxa&quot;</span>
 pureBirth_fit &lt;-<span class="st"> </span>function(fit_input){
  <span class="kw">pmc_model</span>(pureBirth, sim.bd.taxa,

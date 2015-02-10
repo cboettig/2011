@@ -109,12 +109,12 @@
     <h2 id="rfishbase">rfishbase</h2>
 <p>Went through demo of rfishbase with Tomomi.  Improved error handling, added a few data types and a few use cases.</p>
 <p>I always forget that I have to drop nulls by indexing, not my return values of sapply.</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 
 x[!<span class="kw">sapply</span>(x, is.null)]</code></pre>
 <p>Very annoyed with fishbase id numbers (being discontinuous listings and unable to query xml by anything more intelligent). Querying all fishbase ids 1:30000, I get only 999 fish. hmm. Could this be an R memory issue? No sign of such errors. I also illustrate custom functions for processing output.</p>
 <p><strong><em>UPDATE: </em></strong>fixed these errors generally. Seemed specific to zero.  Did run with some memory errors; hopefully avoided. See updated post 09-01-11.</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">require</span>(rfishbase)
 <span class="co"># Now let&#39;s just grab the entire fishbase database,</span>
 fish.data &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="dv">1</span>:<span class="dv">30000</span>)

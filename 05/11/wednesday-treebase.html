@@ -136,7 +136,7 @@
 </ul>
 <h2 id="rflickr">RFlickr</h2>
 <ol type="1">
-<li><p>Revisiting Rflickr now that Duncan has added write permissions.  install.packages(“Rflickr”, repos = “<a href="http://www.omegahat.org/R">http://www.omegahat.org/R</a>”)</p></li>
+<li><p>Revisiting Rflickr now that Duncan has added write permissions.  install.packages(“Rflickr”, repos = “<a href="http://www.omegahat.org/R" class="uri">http://www.omegahat.org/R</a>”)</p></li>
 <li><p>Look up key and secret for my <a href="http://www.flickr.com/services/apps/by/cboettig">registered app</a> (others must<a href="http://www.flickr.com/services/apps/create/apply">register an app</a>)</p></li>
 <li><p>Authenticate with write permissions – Go quickly after issuing this command into browser and approve access before the timeout. NOTE: PERMISSION IS SINGULAR - - won’t error if it is plural.   tok &lt;- Rflickr::authenticate(api_key, secret, permission=“write”)</p></li>
 <li><p>We can use the full <a href="http://www.flickr.com/services/api/">flickr api</a> just as described, except that we need to start everything with secret, tok, and then as specified in the API (api_key, other options).  I.e. for <a href="http://www.flickr.com/services/api/flickr.people.getInfo.html">flickr.people.getInfo</a> we would do: flickr.people.getInfo(secret, tok, api_key, “30385402@N05”)</p></li>

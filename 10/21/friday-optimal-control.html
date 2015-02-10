@@ -109,7 +109,7 @@
     <h2 id="optimal-control">Optimal control</h2>
 <p>Imagine we’re trying to minimize <span class="math">\(J = \theta( y(t_F), t_F)\)</span></p>
 <p>subject to both the state equations: <span class="math">\(\dot y = f(y(t), u(t))\)</span>, Note these are continuous, applying at all times <span class="math">\(t\)</span>.</p>
-<p>and boundary conditions: <span class="math">\(\psi(y(t_F), u(t_F), t_F) = 0\)</span>. These are discrete, applying only at fixed time <span class="math">\(t_F \)</span>.  We have to put the continuous constraint in as an integral:</p>
+<p>and boundary conditions: <span class="math">\(\psi(y(t_F), u(t_F), t_F) = 0\)</span>. These are discrete, applying only at fixed time $t_F $.  We have to put the continuous constraint in as an integral:</p>
 <p><span class="math">\[ \hat J = \left[\phi + \mathbf{\nu}^T \psi \right]_{t_F} - \int_{t_I}^{t_F} \mathbf{\lambda}^T \left(\dot{\mathbf{y}} - f(\mathbf{y}(t),\mathbf{u}(t)) \right) dt \]</span></p>
 <p>compare to the Lagrangian minimizing <span class="math">\(F(x)\)</span> under the constraint <span class="math">\(c(\mathbf{x} ) = 0\)</span></p>
 <p><span class="math">\[ F(\mathbf{x}) - \mathbf{\lambda}^T \mathbf{c}(\mathbf{x}) = F(\mathbf{x}) - \sum_{i=1}^m \lambda_i c_i(\mathbf{x}) \]</span></p>

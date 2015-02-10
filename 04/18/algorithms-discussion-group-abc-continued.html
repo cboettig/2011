@@ -110,7 +110,7 @@
 <h2 id="the-posterior-distribution-from-the-regression">The posterior distribution from the regression</h2>
 <p>The regression is used to determine the posterior distribution of the parameter. We want to move each the observed values down along a line parallel to the regression line until they are at a point at the observed summary statistic. We do this as</p>
 <p><span class="math">\[\theta_i^* = \theta_i - b(S(X_i) - S(X_0)) \]</span></p>
-<p>where <em>b</em> is the slope of the regression, <em>S(X</em>i)_ is the summary stat on each of the simulated data in the regression, and $ S(X_0) $ is the summary statistic of the observed data. The distribution of these $ <em>i^* $ is the posterior distribution of theta. (see Figure 1 of (Csilléry </em>et. al._ 2010)).</p>
+<p>where <em>b</em> is the slope of the regression, <em>S(X_i)</em> is the summary stat on each of the simulated data in the regression, and $ S(X_0) $ is the summary statistic of the observed data. The distribution of these $ _i^* $ is the posterior distribution of theta. (see Figure 1 of (Csilléry <em>et. al.</em> 2010)).</p>
 <p>[gist id=914487]</p>
 <figure>
 <img src="http://farm6.staticflickr.com/5070/5632508759_0e1c988444_o.png" />
@@ -119,7 +119,7 @@
 <p>We consider the alternative model that the data comes from the gamma distribution, rather than the normal distribution, in the example above. We’d like to compare the models by Bayes factors. ((We are just using the single summary statistic, the mean, in both cases. This should be a sufficient statistic to estimate the mean of the normal, the mean of the gamma model is the product of the rate parameter and the shape parameter.))</p>
 <p>The Bayes Factor is the ratio of the probability of the data under model 1 vs the probability of the data under model 2, which we get by integrating out (marginalizing over) the possible parameter values of the model:</p>
 <p><span class="math">\[\frac{P(X|M_1)}{P(X|M_2)} = \frac{ \int P(X|\theta_1) P(\theta_1) d\theta_1 }{ \int P(X|\theta_2) P(\theta_2) d\theta_2} \]</span></p>
-<p>We don’t know the likelihood, $ P(X | <em>1) <span class="math">\(, etc, but argued that by Bayes Theorem we could replace it with the posterior we just calculated, using \)</span> P(X | </em>1) P(<em>1)$ with $ P(</em>1 | X)P(X)$. Then <em>P(X)</em> <del>cancels out of top and bottom, </del>and we’re left with</p>
+<p>We don’t know the likelihood, $ P(X | _1) $, etc, but argued that by Bayes Theorem we could replace it with the posterior we just calculated, using $ P(X | _1) P(_1)$ with $ P(_1 | X)P(X)$. Then <em>P(X)</em> <del>cancels out of top and bottom, </del>and we’re left with</p>
 <p><span class="math">\[\frac{P(X|M_1)}{P(X|M_2)} = \frac{ \int P(\theta_1 | X)  d\theta_1 }{ \int P(\theta_2 | X) d\theta_2} \]</span></p>
 <p>Is this correct?  What should these integrals be normalized by?  Guess we better check our references.</p>
 <h3 id="correction-2-may-2011">CORRECTION: (2 May 2011)</h3>

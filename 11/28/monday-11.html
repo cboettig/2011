@@ -162,7 +162,7 @@
 <p>It seems alpha is often higher in the regime that has a the higher sigma when variance is restricted to sigma. This cannot be right.</p>
 <p>Creating unit tests:</p>
 <p>Sigma behaves correctly in the following way. Simulate data where regimes have different sigmas.</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">require</span>(wrightscape)
 <span class="kw">data</span>(labrids)
 s1_spec  &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">alpha =</span> <span class="st">&quot;global&quot;</span>, <span class="dt">sigma =</span> <span class="st">&quot;indep&quot;</span>, <span class="dt">theta =</span> <span class="st">&quot;global&quot;</span>)
@@ -176,7 +176,7 @@ testcase &lt;-<span class="st"> </span><span class="kw">simulate</span>(s1)[[<sp
 testcase[pharyngeal==<span class="st">&quot;other&quot;</span> &amp;<span class="st"> </span>!<span class="kw">is.na</span>(testcase) &amp;<span class="st"> </span>testcase !=<span class="st"> </span><span class="dv">0</span> ] -&gt;<span class="st"> </span>lowvar
 testcase[pharyngeal!=<span class="st">&quot;other&quot;</span> &amp;<span class="st"> </span>!<span class="kw">is.na</span>(testcase) &amp;<span class="st"> </span>testcase !=<span class="st"> </span><span class="dv">0</span> ] -&gt;<span class="st"> </span>highvar</code></pre>
 <p>Results check out.</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 &gt;<span class="st"> </span><span class="kw">var</span>(lowvar)
 [<span class="dv">1</span>] <span class="fl">0.009888678</span>
 &gt;<span class="st"> </span><span class="kw">var</span>(highvar)
@@ -189,7 +189,7 @@ testcase[pharyngeal!=<span class="st">&quot;other&quot;</span> &amp;<span class=
 [<span class="dv">1</span>] <span class="st">&quot;other&quot;</span>      <span class="st">&quot;pharyngeal&quot;</span></code></pre>
 <p>lowvar indeed has the lower variance (the regime with smaller sigma). And the higher sigma is estimated for the pharyngeal regime (with some expected error: 7.7 instead of 10, and 0.1 instead of 0.01).</p>
 <p>BUT repeat with alpha:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">data</span>(labrids)
 a1_spec  &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">alpha =</span> <span class="st">&quot;indep&quot;</span>, <span class="dt">sigma =</span> <span class="st">&quot;global&quot;</span>, <span class="dt">theta =</span> <span class="st">&quot;global&quot;</span>)
 a1 &lt;-<span class="st"> </span><span class="kw">multiTypeOU</span>(<span class="dt">data =</span> dat[<span class="st">&quot;close&quot;</span>], <span class="dt">tree =</span> tree, <span class="dt">regimes =</span> pharyngeal,
@@ -211,7 +211,7 @@ testcase &lt;-<span class="st"> </span>dat[[<span class="st">&quot;simulated_a1&
 testcase[pharyngeal==<span class="st">&quot;other&quot;</span> &amp;<span class="st"> </span>!<span class="kw">is.na</span>(testcase) &amp;<span class="st"> </span>testcase !=<span class="st"> </span><span class="dv">0</span> ] -&gt;<span class="st"> </span>lowvar
 testcase[pharyngeal!=<span class="st">&quot;other&quot;</span> &amp;<span class="st"> </span>!<span class="kw">is.na</span>(testcase) &amp;<span class="st"> </span>testcase !=<span class="st"> </span><span class="dv">0</span> ] -&gt;<span class="st"> </span>highvar</code></pre>
 <p>and we get</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 &gt;<span class="st"> </span><span class="kw">var</span>(lowvar)
 [<span class="dv">1</span>] <span class="fl">1.187643</span>
 &gt;<span class="st"> </span><span class="kw">var</span>(highvar)
@@ -221,7 +221,7 @@ testcase[pharyngeal!=<span class="st">&quot;other&quot;</span> &amp;<span class=
 <p>And the variances are backwards. Note that the parameter estimates reasonably reflect the simulated regimes (other = 10.1, vs 10, intramandibular = 0.27 vs 1e-12).</p>
 <p>How is this possible? The indexing routine is handling the sigma case correctly, and the same code is used to handle the indexing of each.</p>
 <p>Does this have anything to do with the simulation function: No. We can recreate the issue by drawing data as iid variables instead of using the simulation along the tree:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">require</span>(wrightscape)
 <span class="kw">data</span>(labrids)
 spec =<span class="st"> </span><span class="kw">list</span>(<span class="dt">alpha=</span><span class="st">&quot;indep&quot;</span>, <span class="dt">sigma=</span><span class="st">&quot;global&quot;</span>, <span class="dt">theta=</span><span class="st">&quot;global&quot;</span>)
@@ -238,13 +238,13 @@ m &lt;-<span class="st"> </span><span class="kw">multiTypeOU</span>(<span class=
 <span class="kw">names</span>(m$sigma) &lt;-<span class="st"> </span><span class="kw">levels</span>(intramandibular)
 <span class="kw">names</span>(m$alpha) &lt;-<span class="st"> </span><span class="kw">levels</span>(intramandibular)</code></pre>
 <p>The higher alpha is estimated on the regime that has higher variance</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 &gt;<span class="st"> </span><span class="kw">print</span>(m$alpha)
 intramandibular           other 
       <span class="fl">13.121679</span>        <span class="fl">5.981398</span> </code></pre>
 <p>The data has higher variance among the intramandibular traits. (same is true for pharyngeal). This problem does not face the sigmas model, hence appears to do with the indexing of alphas somehow.</p>
 <p>Trying direct debug:</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">require</span>(wrightscape)
 <span class="kw">data</span>(labrids)
 spec =<span class="st"> </span><span class="kw">list</span>(<span class="dt">alpha=</span><span class="st">&quot;indep&quot;</span>, <span class="dt">sigma=</span><span class="st">&quot;global&quot;</span>, <span class="dt">theta=</span><span class="st">&quot;global&quot;</span>)
@@ -262,7 +262,7 @@ lca &lt;-<span class="st"> </span><span class="kw">lca_calc</span>(tree)
 <span class="kw">multiOU_lik_lca</span>(data, tree, intramandibular, <span class="dt">alpha=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">7</span>), <span class="dt">sigma=</span><span class="kw">c</span>(<span class="dv">16</span>,<span class="dv">5</span>), <span class="dt">theta=</span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="dt">Xo=</span><span class="fl">0.5</span>, lca)</code></pre>
 <p>Looks to be keeping the alpha with sigma at least.</p>
 <p>Check that in global ou mode, smaller alphas fit high variance better: (yup)</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># Test of single OU</span>
 test &lt;-<span class="st"> </span>dat[[<span class="st">&quot;prot.y&quot;</span>]]
 test[!<span class="kw">is.na</span>(test)] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">sum</span>(!<span class="kw">is.na</span>(test)), <span class="dt">sd=</span><span class="dv">10</span>)
@@ -273,7 +273,7 @@ m2 &lt;-<span class="st"> </span><span class="kw">multiTypeOU</span>(<span class
 m1$alpha <span class="co"># larger variance has smaller alpha</span>
 m2$alpha</code></pre>
 <p>All okay. But compare fits</p>
-<pre class="sourceCode R"><code class="sourceCode r">
+<pre class="sourceCode r"><code class="sourceCode r">
 testcase &lt;-<span class="st"> </span>dat[[<span class="st">&quot;prot.y&quot;</span>]]
 other.prot.data &lt;-<span class="st"> </span>testcase[intramandibular==<span class="st">&quot;other&quot;</span> &amp;<span class="st"> </span>!<span class="kw">is.na</span>(testcase)]
 intra.prot.data &lt;-<span class="st"> </span>testcase[intramandibular!=<span class="st">&quot;other&quot;</span> &amp;<span class="st"> </span>!<span class="kw">is.na</span>(testcase)] 
